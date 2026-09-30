@@ -515,7 +515,7 @@ __device__ void calculate_reward(const int i, const T tau_new, const T tau_true,
     // Method 1: Base + Bonus reward system 
     error_new_d[i] = fabs(tau_true - tau_new);
     error_old_d[i] = fabs(tau_true - tau_old);
-    base_reward_d[i] = (error_new_d[i] - error_old_d[i]) / tau_true;
+    base_reward_d[i] = (error_old_d[i] - error_new_d[i]) / tau_true;
     
     rel_error_d[i] = error_new_d[i] / tau_true;
     if (rel_error_d[i] < T(0.01)) {
