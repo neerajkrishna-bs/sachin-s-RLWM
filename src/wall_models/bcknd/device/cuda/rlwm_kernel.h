@@ -168,7 +168,7 @@ __global__ void spalding_initialize(const T * __restrict__ u_d, const T * __rest
        // Normalization w.r.t. viscous scales (nu, utau)
        l_star_d[i] = nu_d[i] / utau_l_d[i]; // l_star_d[i] = nu_d[i] / (utau_l_d[i] + 1e-6);
        u_plus_d[i] = magu_l_d[i] / utau_l_d[i]; // u_plus_d[i] = magu_l_d[i] / (utau_l_d[i] + 1e-6);
-       g_plus_d[i] = dudy_d[index] / ( utau_l_d[i] / l_star_d[i]); // g_plus_d[i] = dudy_d[index] / ( (utau_l_d[i] + 1e-6) / l_star_d[i]);
+       g_plus_d[i] = fabs((dudy_d)[index]) / ( utau_l_d[i] / l_star_d[i]); // g_plus_d[i] = dudy_d[index] / ( (utau_l_d[i] + 1e-6) / l_star_d[i]);
        h_plus_d[i] = h_d[i] / l_star_d[i]; // h_plus_d[i] = h_d[i] / (l_star_d[i] + 1e-6);
 
        // Changing to normalized states
@@ -285,7 +285,7 @@ __global__ void rlwm_compute(const T * __restrict__ u_d, const T * __restrict__ 
         // Normalization w.r.t. viscous scales (nu, utau)
         l_star_d[i] = nu_d[i] / utau_l_d[i]; // l_star_d[i] = nu_d[i] / (utau_l_d[i] + 1e-6);
         u_plus_d[i] = magu_l_d[i] / utau_l_d[i]; // u_plus_d[i] = magu_l_d[i] / (utau_l_d[i] + 1e-6);
-        g_plus_d[i] = dudy_d[index] / ( utau_l_d[i] / l_star_d[i]); // g_plus_d[i] = dudy_d[index] / ( (utau_l_d[i] + 1e-6) / l_star_d[i]);
+        g_plus_d[i] = fabs(dudy_d[index]) / ( utau_l_d[i] / l_star_d[i]); // g_plus_d[i] = dudy_d[index] / ( (utau_l_d[i] + 1e-6) / l_star_d[i]);
         h_plus_d[i] = h_d[i] / l_star_d[i]; // h_plus_d[i] = h_d[i] / (l_star_d[i] + 1e-6);
 
         // Changing to normalized states
