@@ -176,8 +176,10 @@ __global__ void spalding_initialize(const T * __restrict__ u_d, const T * __rest
 	   intercept_d[i] = u_plus_d[i] - (log(h_plus_d[i])/kappa);
 
 	   // RL State 
-	   state_d[0 * n_nodes + i] = slope_d[i];      // First feature
-	   state_d[1 * n_nodes + i] = intercept_d[i];  // Second feature
+	//    state_d[0 * n_nodes + i] = slope_d[i];      // First feature
+	//    state_d[1 * n_nodes + i] = intercept_d[i];  // Second feature
+       state_d[2*i]     = slope_d[i];      // First feature:  state(1,i+1) in Fortran
+       state_d[2*i + 1] = intercept_d[i];  // Second feature: state(2,i+1) in Fortran
 	   
 	   // Field for visualization
 	   slope_field_d[msk_d[i]-1] = slope_d[i];
@@ -293,8 +295,10 @@ __global__ void rlwm_compute(const T * __restrict__ u_d, const T * __restrict__ 
         intercept_d[i] = u_plus_d[i] - (log(h_plus_d[i])/kappa);
 
         // RL State 
-        state_d[0 * n_nodes + i] = slope_d[i];      // First feature
-        state_d[1 * n_nodes + i] = intercept_d[i];  // Second feature
+        // state_d[0 * n_nodes + i] = slope_d[i];      // First feature
+        // state_d[1 * n_nodes + i] = intercept_d[i];  // Second feature
+        state_d[2*i]     = slope_d[i];      // First feature:  state(1,i+1) in Fortran
+        state_d[2*i + 1] = intercept_d[i];  // Second feature: state(2,i+1) in Fortran
         
         // Field for visualization
         slope_field_d[msk_d[i]-1] = slope_d[i];
